@@ -120,6 +120,21 @@
   .photo-prev img{width:100%;height:100%;object-fit:cover}
   .photo-text small{display:block;color:var(--muted);font-size:12.5px;margin-top:3px}
   .photo-text strong{font-size:14.5px;color:var(--blue-ink)}
+  /* department checkboxes */
+  .dept-hint{font-size:12.5px;color:var(--muted);margin:-1px 0 2px}
+  .dept-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:8px}
+  .dept-chip{position:relative;display:flex;align-items:center;gap:10px;border:1.5px solid var(--line);background:var(--paper);border-radius:11px;padding:11px 13px;cursor:pointer;transition:border-color .15s,background .15s;font-size:14px;font-weight:500;user-select:none}
+  .dept-chip:hover{border-color:var(--blue)}
+  .dept-chip input{position:absolute;opacity:0;width:0;height:0}
+  .dept-box{flex:none;width:20px;height:20px;border-radius:6px;border:1.5px solid #bcccd8;background:#fff;display:grid;place-items:center;transition:background .15s,border-color .15s}
+  .dept-box svg{opacity:0;transition:opacity .12s}
+  .dept-chip input:checked ~ .dept-box{background:var(--green);border-color:var(--green)}
+  .dept-chip input:checked ~ .dept-box svg{opacity:1}
+  .dept-chip input:checked ~ .dept-name{color:var(--blue-ink)}
+  .dept-chip.on{border-color:var(--green);background:#eefcef}
+  .dept-chip input:focus-visible ~ .dept-box{box-shadow:0 0 0 4px rgba(11,121,183,.18)}
+  @media (max-width:640px){.dept-grid{grid-template-columns:1fr 1fr}}
+  @media (max-width:430px){.dept-grid{grid-template-columns:1fr}}
   .submit-row{margin-top:34px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
   .btn-submit{background:var(--blue);color:#fff;font-size:16px;padding:16px 40px}
   .btn-submit:hover{background:var(--blue-deep);transform:translateY(-2px)}
@@ -207,8 +222,8 @@
   <div class="wrap">
     <div>
       <span class="eyebrow"><span class="dot"></span> Membership Registration</span>
-      <h1>Cross over into <span class="span">family.</span></h1>
-      <p class="lead">A bridge connects two sides. Take the first step across — register as a member of Bridgeway Gospel Centre and let us welcome you home.</p>
+      <h1>Get <span class="span">registered.</span></h1>
+      <p class="lead">Already part of the Bridgeway family? Complete your member registration below and tell us the department(s) you serve in — it helps us keep everyone connected.</p>
       <div class="hero-actions">
         <a href="#register" class="btn btn-green">Register now</a>
         <a href="#services" class="btn btn-ghost">See our services</a>
@@ -223,7 +238,7 @@
   </svg>
   <div class="stats">
     <div class="wrap">
-      <div class="stat"><b>Join us for</b><span>Weekly gatherings</span></div>
+      <div class="stat"><b>4</b><span>Weekly gatherings</span></div>
       <div class="stat"><b>One</b><span>Family in Christ</span></div>
       <div class="stat"><b>You</b><span>Belong here</span></div>
     </div>
@@ -241,7 +256,7 @@
 
     <div class="form-shell reveal">
       <div class="form-top">
-        <h3>Welcome to Bridgeway</h3>
+        <h3>Member registration</h3>
         <p>It takes two minutes. Required fields are marked <span style="color:#4CCB4A">*</span></p>
       </div>
 
@@ -319,22 +334,21 @@
           <div class="group-label"><span class="n">3</span> Church & photo</div>
           <div class="grid">
             <div class="field full">
-              <label for="department">Department you'd like to serve in</label>
-              <select id="department" name="department">
-                <option value="" disabled selected>Select a department</option>
-                <option>Welfare</option>
-                <option>Choir / Music</option>
-                <option>Ushering</option>
-                <option>Media & Technical</option>
-                <option>Children</option>
-                <option>Prayer</option>
-                <option>Evangelism</option>
-                <option>Protocol</option>
-                <option>Sanctuary</option>
-                <option>Drama</option>
-                <option>Bridgeway Connect</option>
-                <option>Not sure yet</option>
-              </select>
+              <label>Department(s) you belong to <span class="req">*</span></label>
+              <p class="dept-hint">Tick all that apply — you can belong to more than one.</p>
+              <div class="dept-grid" id="deptGrid">
+                <label class="dept-chip"><input type="checkbox" name="department" value="Welfare"><span class="dept-box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span><span class="dept-name">Welfare</span></label>
+                <label class="dept-chip"><input type="checkbox" name="department" value="Choir / Music"><span class="dept-box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span><span class="dept-name">Choir / Music</span></label>
+                <label class="dept-chip"><input type="checkbox" name="department" value="Ushering"><span class="dept-box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span><span class="dept-name">Ushering</span></label>
+                <label class="dept-chip"><input type="checkbox" name="department" value="Media & Technical"><span class="dept-box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span><span class="dept-name">Media &amp; Technical</span></label>
+                <label class="dept-chip"><input type="checkbox" name="department" value="Children"><span class="dept-box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span><span class="dept-name">Children</span></label>
+                <label class="dept-chip"><input type="checkbox" name="department" value="Prayer"><span class="dept-box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span><span class="dept-name">Prayer</span></label>
+                <label class="dept-chip"><input type="checkbox" name="department" value="Evangelism"><span class="dept-box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span><span class="dept-name">Evangelism</span></label>
+                <label class="dept-chip"><input type="checkbox" name="department" value="Protocol"><span class="dept-box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span><span class="dept-name">Protocol</span></label>
+                <label class="dept-chip"><input type="checkbox" name="department" value="Sanctuary"><span class="dept-box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span><span class="dept-name">Sanctuary</span></label>
+                <label class="dept-chip"><input type="checkbox" name="department" value="Drama"><span class="dept-box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span><span class="dept-name">Drama</span></label>
+                <label class="dept-chip"><input type="checkbox" name="department" value="Bridgeway Connect"><span class="dept-box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span><span class="dept-name">Bridgeway Connect</span></label>
+              </div>
             </div>
             <div class="field full">
               <label>Photo upload</label>
@@ -368,8 +382,8 @@
         <div class="ring">
           <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#06340c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg>
         </div>
-        <h3>You're in the family! 🎉</h3>
-        <p>Welcome to Bridgeway Gospel Centre. A confirmation email is on its way with your details and our weekly service times. We can't wait to meet you.</p>
+        <h3>Registration complete! 🎉</h3>
+        <p>Thanks for registering with Bridgeway Gospel Centre. A confirmation email is on its way with your details and our weekly service times.</p>
         <button class="btn btn-green again" id="againBtn">Register someone else</button>
       </div>
     </div>
@@ -438,7 +452,7 @@
       </div>
       <div class="foot-col">
         <h5>Quick links</h5>
-        <a href="#register">Become a member</a>
+        <a href="#register">Register</a>
         <a href="#services">Service times</a>
         <a href="#top">Back to top</a>
       </div>
@@ -513,6 +527,9 @@ form.addEventListener('submit', async (e) => {
   const email = document.getElementById('email').value.trim();
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ showError("Please enter a valid email address."); return; }
 
+  const depts = Array.from(document.querySelectorAll('input[name="department"]:checked')).map(c=>c.value);
+  if(depts.length === 0){ showError("Please tick at least one department you belong to."); document.getElementById('deptGrid').scrollIntoView({behavior:'smooth',block:'center'}); return; }
+
   if(WEB_APP_URL.includes("PASTE_YOUR")){
     showError("Setup needed: paste your Apps Script Web App URL into WEB_APP_URL at the top of the page script.");
     return;
@@ -528,7 +545,8 @@ form.addEventListener('submit', async (e) => {
     address:    document.getElementById('address').value.trim(),
     phone:      document.getElementById('phone').value.trim(),
     emergency:  document.getElementById('emergency').value.trim(),
-    department: document.getElementById('department').value,
+    department: depts.join(", "),
+    departments: depts,
     photoBase64: photoData || "",
     photoName:   photoMeta ? photoMeta.name : "",
     photoType:   photoMeta ? photoMeta.type : ""
@@ -563,8 +581,14 @@ form.addEventListener('submit', async (e) => {
   }
 });
 
+/* ---- department chip highlight ---- */
+document.querySelectorAll('.dept-chip input').forEach(cb=>{
+  cb.addEventListener('change', ()=> cb.closest('.dept-chip').classList.toggle('on', cb.checked));
+});
+
 document.getElementById('againBtn').addEventListener('click', () => {
   form.reset();
+  document.querySelectorAll('.dept-chip.on').forEach(c=>c.classList.remove('on'));
   photoData = null; photoMeta = null;
   photoPrev.innerHTML = `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9a2 2 0 0 1 2-2h2l1.5-2h7L19 7h0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z"/><circle cx="12" cy="13" r="3.2"/></svg>`;
   photoName.textContent = 'Tap to upload your photo';
