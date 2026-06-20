@@ -181,6 +181,11 @@
   .success h3{font-size:28px;color:var(--blue-ink);font-weight:800}
   .success p{color:var(--muted);max-width:46ch;margin:12px auto 0}
   .success .again{margin-top:26px}
+  .success-actions{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .btn-connect{background:var(--green);color:#06340c}
+  .btn-connect:hover{background:#5fe05c;transform:translateY(-2px);box-shadow:0 14px 30px -12px rgba(76,203,74,.7)}
+  .btn-outline{background:#fff;border:1.5px solid var(--line);color:var(--blue)}
+  .btn-outline:hover{background:var(--paper);border-color:var(--blue);transform:translateY(-2px)}
 
   /* ---------- Services ---------- */
   .services{background:#fff;border-top:1px solid var(--line)}
@@ -435,7 +440,13 @@
         </div>
         <h3>Registration complete! 🎉</h3>
         <p>Thanks for registering with Bridgeway Gospel Centre. A confirmation email is on its way with your details and our weekly service times.</p>
-        <button class="btn btn-green again" id="againBtn">Register someone else</button>
+        <div class="success-actions">
+          <a id="socialsBtn" class="btn btn-connect" href="#" target="_blank" rel="noopener">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="margin-right:2px"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.3.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.5c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2 1.3 2.3 1.5.2.1.4.1.6-.1l.7-.9c.2-.3.4-.2.7-.1l1.8.9c.3.1.5.2.5.4.1.2.1.6-.1 1Z"/></svg>
+            Connect with us &amp; join WhatsApp
+          </a>
+          <button class="btn btn-outline" id="againBtn">Register someone else</button>
+        </div>
       </div>
     </div>
   </div>
@@ -536,6 +547,14 @@
    ============================================================ */
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyva9OvW4GQ8LLxs8m1hkhKwcFJJebtF77RVV9nkCOcv22acbAgqlApvsncGeHMCv91/exec";
 
+/* ============================================================
+   SOCIALS / WHATSAPP LINK — paste the single link that holds all
+   the church's social handles + WhatsApp group. Shown as a button
+   on the success screen. If left as the placeholder, the button is
+   hidden automatically.
+   ============================================================ */
+const SOCIALS_LINK = "PASTE_YOUR_SOCIALS_LINK_HERE";
+
 
 /* ---- populate day / month selects ---- */
 const months = ["JANUARY","FEBRUARY","MARCH","APRIL","MAY","JUNE","JULY","AUGUST","SEPTEMBER","OCTOBER","NOVEMBER","DECEMBER"];
@@ -545,6 +564,14 @@ for (let d=1; d<=31; d++){ const o=document.createElement('option'); o.value=d; 
 months.forEach((m,i)=>{ const o=document.createElement('option'); o.value=m; o.textContent=m.charAt(0)+m.slice(1).toLowerCase(); monSel.appendChild(o); });
 
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// success-screen socials/WhatsApp button
+(function(){
+  const b=document.getElementById('socialsBtn');
+  if(!b) return;
+  if(SOCIALS_LINK && SOCIALS_LINK.indexOf("PASTE_YOUR")<0){ b.href=SOCIALS_LINK; }
+  else { b.style.display='none'; }
+})();
 
 /* ---- photo widgets: upload + in-browser camera ---- */
 const PHOTO_ICON = '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9a2 2 0 0 1 2-2h2l1.5-2h7L19 7h0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z"/><circle cx="12" cy="13" r="3.2"/></svg>';
