@@ -144,6 +144,37 @@
   @keyframes spin{to{transform:rotate(360deg)}}
   .form-error{display:none;background:#fde8e8;border:1px solid #f5b5b5;color:#9b2222;padding:12px 16px;border-radius:11px;font-size:14px;margin-top:20px}
 
+  /* photo widget (upload + camera) */
+  .photo-widget{display:flex;align-items:center;gap:16px;border:1.5px dashed var(--blue);background:#eef6fb;border-radius:13px;padding:16px}
+  .pw-prev{width:70px;height:70px;border-radius:12px;background:#cfe3f0;flex:none;display:grid;place-items:center;color:var(--blue);overflow:hidden}
+  .pw-prev img{width:100%;height:100%;object-fit:cover}
+  .pw-meta{flex:1;min-width:0}
+  .pw-label{font-size:14.5px;color:var(--blue-ink);display:block}
+  .pw-hint{display:block;color:var(--muted);font-size:12.5px;margin-top:2px}
+  .pw-btns{display:flex;gap:8px;margin-top:9px;flex-wrap:wrap}
+  .pw-btn{font-family:inherit;font-size:13px;font-weight:600;border-radius:9px;padding:8px 14px;cursor:pointer;border:1.5px solid var(--blue);background:#fff;color:var(--blue);transition:background .15s,color .15s}
+  .pw-btn:hover{background:var(--blue);color:#fff}
+  .pw-btn.pw-cam{border-color:var(--green-deep);color:var(--green-deep)}
+  .pw-btn.pw-cam:hover{background:var(--green-deep);color:#fff}
+  /* add-child button */
+  .btn-add{margin-top:14px;font-family:inherit;font-size:14px;font-weight:600;color:var(--blue);background:#eef6fb;border:1.5px dashed var(--blue);border-radius:11px;padding:12px 18px;cursor:pointer;width:100%;transition:background .15s}
+  .btn-add:hover{background:#e0eff9}
+  /* child card */
+  .child-card{position:relative;border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:14px;background:linear-gradient(180deg,#fff,#f6fbff)}
+  .child-card .child-no{font-family:'Archivo';font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--green-deep);margin-bottom:14px}
+  .child-remove{position:absolute;top:14px;right:14px;background:#fde8e8;color:#9b2222;border:none;border-radius:8px;width:30px;height:30px;font-size:16px;cursor:pointer;line-height:1}
+  .child-remove:hover{background:#f7d2d2}
+  /* camera modal */
+  .cam-modal{position:fixed;inset:0;z-index:200;background:rgba(6,28,42,.82);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:20px}
+  .cam-modal.open{display:flex}
+  .cam-box{background:#fff;border-radius:18px;padding:18px;max-width:460px;width:100%;box-shadow:0 30px 80px -20px rgba(0,0,0,.6)}
+  .cam-head{font-family:'Archivo';font-weight:800;color:var(--blue-ink);font-size:18px;margin-bottom:12px}
+  #camVideo{width:100%;border-radius:12px;background:#06405f;aspect-ratio:4/3;object-fit:cover}
+  .cam-err{background:#fde8e8;border:1px solid #f5b5b5;color:#9b2222;padding:10px 12px;border-radius:10px;font-size:13.5px;margin-top:12px}
+  .cam-actions{display:flex;gap:12px;margin-top:16px}
+  .cam-actions .btn{flex:1;justify-content:center}
+  .cam-cancel{flex:none;background:#eef3f7;border:none;border-radius:999px;padding:14px 22px;font-family:inherit;font-weight:600;color:var(--muted);cursor:pointer}
+  .cam-cancel:hover{background:#e2eaf0}
   /* success */
   .success{display:none;padding:54px 36px;text-align:center}
   .success .ring{width:84px;height:84px;border-radius:50%;background:var(--green);display:grid;place-items:center;margin:0 auto 22px;box-shadow:0 12px 30px -10px rgba(76,203,74,.6)}
@@ -349,21 +380,40 @@
                 <label class="dept-chip"><input type="checkbox" name="department" value="Reach Out and Repair"><span class="dept-box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span><span class="dept-name">Reach Out and Repair</span></label>
                 <label class="dept-chip"><input type="checkbox" name="department" value="Marriage Faculty (For the married)"><span class="dept-box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span><span class="dept-name">Marriage Faculty (For the married)</span></label>
                 <label class="dept-chip"><input type="checkbox" name="department" value="Tribe (For the youths)"><span class="dept-box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span><span class="dept-name">Tribe (For the youths)</span></label>
+                <label class="dept-chip"><input type="checkbox" name="department" value="Follow-up Team"><span class="dept-box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span><span class="dept-name">Follow-up Team</span></label>
               </div>
             </div>
             <div class="field full">
-              <label>Photo upload</label>
-              <label class="photo-drop" for="photo">
-                <span class="photo-prev" id="photoPrev">
-                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9a2 2 0 0 1 2-2h2l1.5-2h7L19 7h0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z"/><circle cx="12" cy="13" r="3.2"/></svg>
-                </span>
-                <span class="photo-text">
-                  <strong id="photoName">Tap to upload your photo</strong>
-                  <small>JPG or PNG, up to 5 MB. Saved securely to the church drive.</small>
-                </span>
-                <input type="file" id="photo" name="photo" accept="image/png,image/jpeg" />
-              </label>
+              <label>Your photo</label>
+              <div class="photo-widget" data-pkey="member">
+                <div class="pw-prev"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9a2 2 0 0 1 2-2h2l1.5-2h7L19 7h0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z"/><circle cx="12" cy="13" r="3.2"/></svg></div>
+                <div class="pw-meta">
+                  <strong class="pw-label">Add your photo</strong>
+                  <small class="pw-hint">Upload from your device or take one now.</small>
+                  <div class="pw-btns">
+                    <button type="button" class="pw-btn pw-upload">Upload</button>
+                    <button type="button" class="pw-btn pw-cam">Take photo</button>
+                  </div>
+                </div>
+                <input type="file" class="pw-file" accept="image/*" hidden />
+              </div>
             </div>
+          </div>
+        </div>
+
+        <!-- Children (optional) -->
+        <div class="group">
+          <div class="group-label"><span class="n">4</span> Children &nbsp;<span style="font-weight:500;text-transform:none;letter-spacing:0;color:var(--muted);font-family:Inter">(optional)</span></div>
+          <div class="field full">
+            <label for="hasChildren">Would you like to register any children?</label>
+            <select id="hasChildren">
+              <option value="no" selected>No</option>
+              <option value="yes">Yes, register my child(ren)</option>
+            </select>
+          </div>
+          <div id="childrenWrap" hidden>
+            <div id="childrenList"></div>
+            <button type="button" id="addChild" class="btn-add">+ Add another child</button>
           </div>
         </div>
 
@@ -465,6 +515,21 @@
   </div>
 </footer>
 
+
+<!-- ===== Camera modal ===== -->
+<div class="cam-modal" id="camModal" aria-hidden="true">
+  <div class="cam-box">
+    <div class="cam-head">Take a photo</div>
+    <video id="camVideo" autoplay playsinline></video>
+    <canvas id="camCanvas" hidden></canvas>
+    <p class="cam-err" id="camErr" hidden></p>
+    <div class="cam-actions">
+      <button type="button" class="btn btn-green" id="camShoot">Capture</button>
+      <button type="button" class="cam-cancel" id="camClose">Cancel</button>
+    </div>
+  </div>
+</div>
+
 <script>
 /* ============================================================
    CONFIG — paste your deployed Apps Script Web App URL here
@@ -481,27 +546,127 @@ months.forEach((m,i)=>{ const o=document.createElement('option'); o.value=m; o.t
 
 document.getElementById('year').textContent = new Date().getFullYear();
 
-/* ---- photo preview ---- */
-let photoData = null; // base64 string (no prefix)
-let photoMeta = null; // {name, type}
-const photoInput = document.getElementById('photo');
-const photoPrev = document.getElementById('photoPrev');
-const photoName = document.getElementById('photoName');
+/* ---- photo widgets: upload + in-browser camera ---- */
+const PHOTO_ICON = '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9a2 2 0 0 1 2-2h2l1.5-2h7L19 7h0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z"/><circle cx="12" cy="13" r="3.2"/></svg>';
 
-photoInput.addEventListener('change', () => {
-  const file = photoInput.files[0];
-  if(!file) return;
-  if(file.size > 5*1024*1024){ showError("That photo is larger than 5 MB. Please choose a smaller image."); photoInput.value=''; return; }
-  const reader = new FileReader();
-  reader.onload = e => {
-    const result = e.target.result;          // data:image/...;base64,XXXX
-    photoData = result.split(',')[1];
-    photoMeta = { name: file.name, type: file.type };
-    photoPrev.innerHTML = `<img src="${result}" alt="preview" />`;
-    photoName.textContent = file.name;
-    hideError();
-  };
-  reader.readAsDataURL(file);
+// downscale any image dataURL to <=900px and return {dataURL, b64} as JPEG
+function compress(dataURL, maxDim=900){
+  return new Promise(res=>{
+    const img=new Image();
+    img.onload=()=>{
+      let {width:w,height:hh}=img;
+      const sc=Math.min(1, maxDim/Math.max(w,hh));
+      w=Math.round(w*sc); hh=Math.round(hh*sc);
+      const cv=document.createElement('canvas'); cv.width=w; cv.height=hh;
+      cv.getContext('2d').drawImage(img,0,0,w,hh);
+      const out=cv.toDataURL('image/jpeg',0.85);
+      res({dataURL:out, b64:out.split(',')[1]});
+    };
+    img.src=dataURL;
+  });
+}
+function setWidget(widget, dataURL, b64){
+  widget.dataset.b64=b64; widget.dataset.mime='image/jpeg';
+  widget.querySelector('.pw-prev').innerHTML='<img src="'+dataURL+'" alt="photo"/>';
+  const lbl=widget.querySelector('.pw-label'); if(lbl) lbl.textContent='Photo added \u2713';
+}
+function clearWidget(widget){
+  delete widget.dataset.b64; delete widget.dataset.mime;
+  widget.querySelector('.pw-prev').innerHTML=PHOTO_ICON;
+  const lbl=widget.querySelector('.pw-label'); if(lbl) lbl.textContent=widget.dataset.pkey==='member'?'Add your photo':'Add child\u2019s photo';
+}
+
+// delegated: upload button -> file input ; file change -> compress
+document.addEventListener('click', e=>{
+  const up=e.target.closest('.pw-upload');
+  if(up){ up.closest('.photo-widget').querySelector('.pw-file').click(); }
+  const cam=e.target.closest('.pw-cam');
+  if(cam){ openCamera(cam.closest('.photo-widget')); }
+});
+document.addEventListener('change', async e=>{
+  const file=e.target.closest('.pw-file');
+  if(!file || !file.files[0]) return;
+  const f=file.files[0];
+  if(f.size>8*1024*1024){ showError("That image is very large. Please choose a smaller one."); file.value=''; return; }
+  const reader=new FileReader();
+  reader.onload=async ev=>{ const {dataURL,b64}=await compress(ev.target.result); setWidget(file.closest('.photo-widget'),dataURL,b64); hideError(); };
+  reader.readAsDataURL(f);
+});
+
+/* ---- camera modal ---- */
+let camStream=null, camTarget=null;
+const camModal=document.getElementById('camModal');
+const camVideo=document.getElementById('camVideo');
+const camErr=document.getElementById('camErr');
+async function openCamera(widget){
+  camTarget=widget; camErr.hidden=true;
+  camModal.classList.add('open'); camModal.setAttribute('aria-hidden','false');
+  try{
+    camStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user'},audio:false});
+    camVideo.srcObject=camStream;
+  }catch(err){
+    camErr.hidden=false;
+    camErr.textContent='Could not access the camera. Please allow camera permission, or use Upload instead.';
+  }
+}
+function closeCamera(){
+  if(camStream){ camStream.getTracks().forEach(t=>t.stop()); camStream=null; }
+  camVideo.srcObject=null; camModal.classList.remove('open'); camModal.setAttribute('aria-hidden','true'); camTarget=null;
+}
+document.getElementById('camClose').addEventListener('click', closeCamera);
+document.getElementById('camShoot').addEventListener('click', async ()=>{
+  if(!camStream || !camTarget) return;
+  const cv=document.getElementById('camCanvas');
+  cv.width=camVideo.videoWidth; cv.height=camVideo.videoHeight;
+  cv.getContext('2d').drawImage(camVideo,0,0);
+  const {dataURL,b64}=await compress(cv.toDataURL('image/jpeg',0.9));
+  setWidget(camTarget,dataURL,b64);
+  closeCamera();
+});
+
+/* ---- children repeater ---- */
+const DAYS=Array.from({length:31},(_,i)=>'<option>'+(i+1)+'</option>').join('');
+const MONTHS_OPT=months.map(m=>'<option>'+m.charAt(0)+m.slice(1).toLowerCase()+'</option>').join('');
+let childSeq=0;
+const childrenList=document.getElementById('childrenList');
+const childrenWrap=document.getElementById('childrenWrap');
+const hasChildren=document.getElementById('hasChildren');
+
+function childCard(){
+  childSeq++;
+  const card=document.createElement('div');
+  card.className='child-card';
+  card.innerHTML=
+    '<div class="child-no">Child</div>'+
+    '<button type="button" class="child-remove" title="Remove">\u00d7</button>'+
+    '<div class="grid">'+
+      '<div class="field full"><label>Child\u2019s full name</label><input type="text" class="ch-name" placeholder="Child\u2019s name"></div>'+
+      '<div class="field full"><label>Parent(s)\u2019 name</label><input type="text" class="ch-parents" placeholder="Parent / guardian name"></div>'+
+      '<div class="field"><label>Age</label><input type="number" class="ch-age" min="0" max="25" placeholder="Age"></div>'+
+      '<div class="field"><label>Gender</label><select class="ch-gender"><option value="" disabled selected>Select</option><option>Male</option><option>Female</option></select></div>'+
+      '<div class="field full"><label>Birthday</label><div class="dob"><select class="ch-day"><option value="" disabled selected>Day</option>'+DAYS+'</select><select class="ch-month"><option value="" disabled selected>Month</option>'+MONTHS_OPT+'</select></div></div>'+
+      '<div class="field full"><label>Child\u2019s photo</label>'+
+        '<div class="photo-widget" data-pkey="child">'+
+          '<div class="pw-prev">'+PHOTO_ICON+'</div>'+
+          '<div class="pw-meta"><strong class="pw-label">Add child\u2019s photo</strong><small class="pw-hint">Upload or take a photo.</small>'+
+          '<div class="pw-btns"><button type="button" class="pw-btn pw-upload">Upload</button><button type="button" class="pw-btn pw-cam">Take photo</button></div></div>'+
+          '<input type="file" class="pw-file" accept="image/*" hidden></div>'+
+      '</div>'+
+    '</div>';
+  childrenList.appendChild(card);
+  renumberChildren();
+}
+function renumberChildren(){
+  childrenList.querySelectorAll('.child-card .child-no').forEach((el,i)=>el.textContent='Child '+(i+1));
+}
+hasChildren.addEventListener('change', ()=>{
+  if(hasChildren.value==='yes'){ childrenWrap.hidden=false; if(!childrenList.children.length) childCard(); }
+  else { childrenWrap.hidden=true; childrenList.innerHTML=''; }
+});
+document.getElementById('addChild').addEventListener('click', childCard);
+childrenList.addEventListener('click', e=>{
+  if(e.target.closest('.child-remove')){ e.target.closest('.child-card').remove(); renumberChildren();
+    if(!childrenList.children.length){ hasChildren.value='no'; childrenWrap.hidden=true; } }
 });
 
 /* ---- helpers ---- */
@@ -531,6 +696,36 @@ form.addEventListener('submit', async (e) => {
   const depts = Array.from(document.querySelectorAll('input[name="department"]:checked')).map(c=>c.value);
   if(depts.length === 0){ showError("Please tick at least one department you belong to."); document.getElementById('deptGrid').scrollIntoView({behavior:'smooth',block:'center'}); return; }
 
+  // member photo
+  const memberW=document.querySelector('.photo-widget[data-pkey="member"]');
+  const memberB64=memberW.dataset.b64||"";
+  const memberMime=memberW.dataset.mime||"";
+
+  // children
+  let childrenData=[];
+  if(hasChildren.value==='yes'){
+    const cards=[...document.querySelectorAll('.child-card')];
+    for(const card of cards){
+      const name=card.querySelector('.ch-name').value.trim();
+      const w=card.querySelector('.photo-widget');
+      if(!name){
+        const anyFilled=card.querySelector('.ch-parents').value.trim()||card.querySelector('.ch-age').value.trim()||w.dataset.b64;
+        if(anyFilled){ showError("Please enter the name for each child you are registering (or remove the empty child)."); return; }
+        continue;
+      }
+      childrenData.push({
+        name,
+        parents: card.querySelector('.ch-parents').value.trim(),
+        age:     card.querySelector('.ch-age').value.trim(),
+        gender:  card.querySelector('.ch-gender').value,
+        birthday:(card.querySelector('.ch-day').value||"")+" "+(card.querySelector('.ch-month').value||""),
+        photoBase64: w.dataset.b64||"",
+        photoType:   w.dataset.mime||""
+      });
+    }
+    if(!childrenData.length){ showError("You chose to register children but added none. Add a child or set the dropdown to “No”."); return; }
+  }
+
   if(WEB_APP_URL.includes("PASTE_YOUR")){
     showError("Setup needed: paste your Apps Script Web App URL into WEB_APP_URL at the top of the page script.");
     return;
@@ -548,9 +743,9 @@ form.addEventListener('submit', async (e) => {
     emergency:  document.getElementById('emergency').value.trim(),
     department: depts.join(", "),
     departments: depts,
-    photoBase64: photoData || "",
-    photoName:   photoMeta ? photoMeta.name : "",
-    photoType:   photoMeta ? photoMeta.type : ""
+    photoBase64: memberB64,
+    photoType:   memberMime,
+    children:    childrenData
   };
 
   // loading state
@@ -590,9 +785,8 @@ document.querySelectorAll('.dept-chip input').forEach(cb=>{
 document.getElementById('againBtn').addEventListener('click', () => {
   form.reset();
   document.querySelectorAll('.dept-chip.on').forEach(c=>c.classList.remove('on'));
-  photoData = null; photoMeta = null;
-  photoPrev.innerHTML = `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9a2 2 0 0 1 2-2h2l1.5-2h7L19 7h0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z"/><circle cx="12" cy="13" r="3.2"/></svg>`;
-  photoName.textContent = 'Tap to upload your photo';
+  document.querySelectorAll('.photo-widget').forEach(clearWidget);
+  childrenList.innerHTML=''; childrenWrap.hidden=true; hasChildren.value='no';
   document.getElementById('success').style.display = 'none';
   form.style.display = 'block';
   document.getElementById('register').scrollIntoView({behavior:'smooth'});
@@ -604,5 +798,6 @@ const io = new IntersectionObserver((entries)=>{
 },{threshold:.15});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 </script>
+
 </body>
 </html>
